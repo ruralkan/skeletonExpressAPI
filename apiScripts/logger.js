@@ -31,12 +31,17 @@ const logConfiguration = {
             json: false,
             maxsize: 104857600,
             maxFiles: 5
+        }),
+        new winston.transports.Console({
+            level: 'error',
+            handleExceptions: true,
+            exitOnError: true
         })
     ]
 };
 
 // Create the logger
-const logger = winston.createLogger(logConfiguration);
+const logger =  winston.createLogger(logConfiguration);
 
 
 
@@ -44,7 +49,7 @@ const logger = winston.createLogger(logConfiguration);
 // If we're not in production then log to the `console` with the format:
 // `${info.level}: ${info.message} JSON.stringify({ ...rest }) `
 //
-if (process.env.NODE_ENV !== 'production') {
+/*if (process.env.NODE_ENV !== 'production') {
     logger.add(new winston.transports.Console({
         level: 'error',
         handleExceptions: true,
@@ -52,3 +57,6 @@ if (process.env.NODE_ENV !== 'production') {
     }));
   }
 
+*/
+// Log some messages
+module.exports = logger

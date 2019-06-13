@@ -7,7 +7,7 @@ let Book = require('../models/bookModels.js');
 module.exports = (type = `${type}s`) => {
   return (req, res, next, value) => {
 
-    console.log(value);
+    //console.log(value);
 
     //query could be {genre: 'fantasy'} and is in req
     // localhost:3000/api/books?genre=Fantasy

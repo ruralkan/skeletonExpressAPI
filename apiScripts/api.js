@@ -1,10 +1,14 @@
-import chalk from 'chalk'
 import express from 'express';
 import open from 'open';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
 
 import expressWinston from 'express-winston';
+
+//require chalk module to give colors to console text
+var chalk = require('chalk');
+
+var connected = chalk.bold.cyan;
 
 const logger = require('./logger.js');
 
@@ -47,6 +51,7 @@ module.exports = () => express()
   } else {
     //Start the server in port
     open('http://localhost:' + port + '/api');
-    console.log(`Listening on ${ chalk.green(port) } `);
+    logger.info(connected(`Listening on ${port}`));
+
   }
 })
