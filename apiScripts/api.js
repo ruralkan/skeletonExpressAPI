@@ -2,32 +2,48 @@ import chalk from 'chalk'
 import express from 'express';
 import open from 'open';
 import morgan from 'morgan';
+import bodyParser from 'body-parser';
 
-const db = require('./utils/dataBase')
+import expressWinston from 'express-winston';
+
+const logger = require('./logger.js');
+
+const database = require('./utils/createDataBase')({ logger });
 
 // call the database connectivity function
-db();
+
 
 
 const routes = require('./routes');
 
 const port = process.env.PORT || 3000;
-const app = express();
 
 
 
-
-// The next command en enable use of consoles
-/* eslint-disable no-console */
-
-app.use(morgan('tiny'));
+module.exports = () => express()
+.use(expressWinston.logger({
+    winstonInstance: logger,
+    msg: '{{res.statusCode}} {{req.method}} {{req.url}} {{res.responseTime}}ms',
+    meta: false,
+}))
+.use(bodyParser.urlencoded({ extended: true }))
+.use(bodyParser.json())
+.use((req, res, next) => {
+  req.base = `${req.protocol}://${req.get('host')}`
+  req.logger = logger
+  req.db = database
+  return next()
+})
+.use(morgan('tiny'))
 //  Connect all our routes to our application
-app.use('/api', routes);
-
-
-app.listen(port, (err) => {
-  if (err) {
-    console.log(err);
+.use('/api', routes)
+.use((error, req, res, next) => {
+  logger.error(error, error)
+  res.status(error.status || 500).json({ error });
+  next();
+}).listen(port, (error) => {
+  if (error) {
+    logger.error(error, error);
   } else {
     //Start the server in port
     open('http://localhost:' + port + '/api');
