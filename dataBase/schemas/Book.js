@@ -10,7 +10,7 @@ const bookSchema = new Schema(
     });
 
 bookSchema.methods.sayHello = function () {
-    return `This is a shared function: ${this.username}`
+    return `This is a shared function: ${this.title}`
 }
 
 module.exports = bookSchema;

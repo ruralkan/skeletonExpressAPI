@@ -2,7 +2,7 @@
 We use this type to make sure we search through the correct piece of data for our object
 and then to make sure we add the correct piece of data to the request.*/
 
-let Book = require('../models/bookModels.js');
+let Book = require('./schemas/books.js');
 
 module.exports = (type = `${type}s`) => {
   return (req, res, next, value) => {

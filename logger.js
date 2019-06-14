@@ -33,7 +33,8 @@ const logConfiguration = {
             maxFiles: 5
         }),
         new winston.transports.Console({
-            level: 'error',
+            level: 'debug',
+            format: winston.format.combine(winston.format.colorize(), winston.format.simple()),  // winston.format.json(),
             handleExceptions: true,
             exitOnError: true
         })
