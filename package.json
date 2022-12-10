@@ -34,7 +34,7 @@
     "eslint-plugin-node": "^9.1.0",
     "eslint-plugin-promise": "^4.1.1",
     "eslint-plugin-standard": "^4.0.0",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "localtunnel": "^1.9.2",
     "mocha": "^6.1.4",
     "morgan": "^1.9.1",
